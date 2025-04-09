@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String         @id @default(cuid())
+  telegramId        BigInt         @unique
+  username          String?
+  plan              String         @default("trial") // trial | free | premium
+  trialEndsAt       DateTime
+  dailyLimit        Int            @default(20)      // GPT-запитів
+  usedToday         Int            @default(0)
+  taskLimitPerDay   Int            @default(10)
+  createdAt         DateTime       @default(now())
+  lastActiveAt      DateTime?
+  isBlocked         Boolean        @default(false)
+
+  tasks             Task[]
+  sessionLogs       SessionLog[]
+}
+
+model Task {
+  id          String     @id @default(cuid())
+  userId      String
+  user        User       @relation(fields: [userId], references: [id])
+  title       String
+  description String?
+  date        DateTime
+  reminderAt  DateTime?
+  done        Boolean    @default(false)
+  source      String?    // user | gpt | calendar | notion
+  priority    Int        @default(1)
+  tags        String[]   @default([])
+  createdAt   DateTime   @default(now())
+}
+
+model SessionLog {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id])
+  prompt     String
+  response   String
+  type       String    @default("message") // message | task | analyze | calendar
+  meta       Json?
+  createdAt  DateTime  @default(now())
+}
