@@ -7,8 +7,6 @@ A personal Telegram bot powered by GPT-3.5 that helps you plan your day, manage 
 
 ## 💬 About this project
 
-I originally built this bot for myself — to simplify daily planning, task management, and quickly interact with GPT in Telegram. It makes my workflow way easier, and I’ve decided to share it as open-source so anyone can use it, improve it, or turn it into something even better.
-
 The bot is currently designed for **a single user** and isn't yet deployed to a public server — it runs locally.  
 There’s no external API for task storage, but the **PostgreSQL schema is clean and production-ready** (see the Prisma migration files).
 
