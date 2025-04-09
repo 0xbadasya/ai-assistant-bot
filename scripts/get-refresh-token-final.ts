@@ -2,9 +2,9 @@
 import { google } from 'googleapis';
 import readline from 'readline';
 
-const CLIENT_ID = '1094532406775-9fuk3nol6bi4h1voogvl0oa60nj54pic.apps.googleusercontent.com';
-const CLIENT_SECRET = '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';
-const REDIRECT_URI = 'http://localhost:3000/oauth2callback';
+const CLIENT_ID = '';
+const CLIENT_SECRET = '';
+const REDIRECT_URI = '';
 
 const oauth2Client = new google.auth.OAuth2(
   CLIENT_ID,
