@@ -20,7 +20,7 @@ export class TelegramService {
     const username = ctx.from.username;
 
     const user = await this.userService.findOrCreateUser(telegramId, username);
-    const userId = user.id; // правильний userId
+    const userId = user.id; 
 
     const canUse = await this.userService.canUseBot(userId);
     if (!canUse) return '🚫 Вичерпано ліміт або закінчився пробний період.';
@@ -43,7 +43,7 @@ export class TelegramService {
     if (text.startsWith('/analyze_day')) {
       const logs = await this.prisma.sessionLog.findMany({
         where: {
-          userId: userId, // використовуємо userId
+          userId: userId, 
           createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) },
         },
         orderBy: { createdAt: 'asc' },
@@ -51,7 +51,7 @@ export class TelegramService {
 
       const history = logs.map(log => `🧠 ${log.prompt}\n🤖 ${log.response}`).join('\n\n');
       const result = await this.aiService.generateReply(`Проаналізуй мій день:
-${history}`, userId); // використовуємо userId
+${history}`, userId); 
       await this.userService.incrementUsage(userId);
       return result;
     }
@@ -66,8 +66,8 @@ ${history}`, userId); // використовуємо userId
       return `📅 Подію "${parsed.summary}" додано в Google Calendar.`;
     }
 
-    const reply = await this.aiService.generateReply(text, userId); // використовуємо userId
-    await this.prisma.sessionLog.create({ data: { userId: userId, prompt: text, response: reply } }); // використовуємо userId
+    const reply = await this.aiService.generateReply(text, userId); 
+    await this.prisma.sessionLog.create({ data: { userId: userId, prompt: text, response: reply } }); 
     await this.userService.incrementUsage(userId);
     return reply;
   }
