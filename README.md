@@ -29,7 +29,7 @@ If you plan to use it commercially (e.g., launch a paid subscription), I’d rea
 
 ---
 
-## 🔐 Limitations
+## 🔐 Added Logic of Limitations
 
 - 7-day trial period  
 - 20 GPT requests per day  
